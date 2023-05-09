@@ -13,7 +13,12 @@
 # "I bet I could make a simulation out of this to find out which boarding method is the fastest!"
 # And so, here I am.
 
+
 # python ~/airplane_boarding/airplane_boarding.py window_width window_height
+
+# sys.argv[1] = width of window (in pixels) [integer, NOT REQUIRED]
+# sys.argv[2] = height of window (in pixels) [integer, NOT REQUIRED]
+# if no arguments provided, resort to defaults
 
 # ~~~~~~~~~~~~~~~~ Introduction ~~~~~~~~~~~~~~~~~~
 
@@ -32,6 +37,7 @@ from random import sample # for skintones
 from random import randint # for spawning
 from itertools import product # for seat combinations
 from itertools import chain # for seat_list
+import sys # for window_width and window_height
 
 ##################################################
 
@@ -59,10 +65,17 @@ seat_layouts = DataFrame.from_dict( # number of walkways must remain constant, s
 # IMPORTANT VARIABLES
 ##################################################
 # VARIABLES
+
 # window
-window_width = 1350 # integer
-window_height = 350 # integer
-plane_body_margin_fraction = 1.01 # the distance from the edge of the window the plane's cockpit wall will sit (margin size)
+try:
+    window_width = int(sys.argv[1])
+    window_height = int(sys.argv[2])
+except:
+    window_width = 1350 # integer
+    window_height = 350 # integer
+
+# the distance from the edge of the window the plane's cockpit wall will sit (margin size)
+plane_body_margin_fraction = 1.01
 
 # colors
 canvas_background_color = "#F0F0F0" # grey
