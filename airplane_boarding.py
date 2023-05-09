@@ -13,10 +13,11 @@
 # "I bet I could make a simulation out of this to find out which boarding method is the fastest!"
 # And so, here I am.
 
+# python ~/airplane_boarding/airplane_boarding.py window_width window_height
 
 # ~~~~~~~~~~~~~~~~ Introduction ~~~~~~~~~~~~~~~~~~
 
-# IMPORTS, IMPORTANT VARIABLES
+# IMPORTS
 ##################################################
 
 # IMPORTS
@@ -32,6 +33,31 @@ from random import randint # for spawning
 from itertools import product # for seat combinations
 from itertools import chain # for seat_list
 
+##################################################
+
+# SEAT LAYOUTS
+##################################################
+# seat variables
+n_exits = 1 # including entrance door
+seat_layouts = DataFrame.from_dict( # number of walkways must remain constant, seat_depth and leg_room in terms of passenger diameters
+    columns =          ("seat_layout",  "n_rows","leg_room", "seat_depth"),
+    data = {
+    "first"           :(     "A BC D" ,        5,      2.00,         2.00),
+    "business"        :(     "A BC D" ,        5,      1.80,         1.80),
+    "premium economy" :(    "AB CD EF",        5,      1.80,         1.60),
+    "economy"         :(    "AB CD EF",       20,      1.60,         1.60)
+    },
+    orient = "index").astype({
+        "seat_layout": "string",
+        "n_rows"     : "int64",
+        "leg_room"   : "float64",
+        "seat_depth" : "float64"
+    }
+)
+##################################################
+
+# IMPORTANT VARIABLES
+##################################################
 # VARIABLES
 # window
 window_width = 1350 # integer
@@ -67,23 +93,6 @@ display_exits = True
 # passenger size is determined by number of rows
 ts = 0.02 # tickspeed (in seconds)
 
-# seat variables
-n_exits = 1 # including entrance door
-seat_layouts = DataFrame.from_dict( # number of walkways must remain constant, seat_depth and leg_room in terms of passenger diameters
-    columns =          ("seat_layout",  "n_rows","leg_room", "seat_depth"),
-    data = {
-    "first"           :(     "A BC D" ,        5,      2.00,         2.00),
-    "business"        :(     "A BC D" ,        5,      1.80,         1.80),
-    "premium economy" :(    "AB CD EF",        5,      1.80,         1.60),
-    "economy"         :(    "AB CD EF",       20,      1.60,         1.60)
-    },
-    orient = "index").astype({
-        "seat_layout": "string",
-        "n_rows"     : "int64",
-        "leg_room"   : "float64",
-        "seat_depth" : "float64"
-    }
-)
 n_row_min, n_row_max = 5, 50 # minimum and maximum number of rows (inclusive)
 n_row_section_min, n_row_section_max = 3, n_row_max
 gateway_size = 1.50 # in terms of passenger diameters, MUST BE GREATER THAN 1.00, or passengers wont fit; how big the gateway is, and thus the aisles on the plane
@@ -1148,4 +1157,3 @@ print("Ready for takeoff!")
 # root.bind("<space>", next_frame)
 
 ##################################################
-
