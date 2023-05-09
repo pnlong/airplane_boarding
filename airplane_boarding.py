@@ -20,6 +20,7 @@
 # sys.argv[2] = height of window (in pixels) [integer, NOT REQUIRED]
 # if no arguments provided, resort to defaults
 
+
 # ~~~~~~~~~~~~~~~~ Introduction ~~~~~~~~~~~~~~~~~~
 
 # IMPORTS
